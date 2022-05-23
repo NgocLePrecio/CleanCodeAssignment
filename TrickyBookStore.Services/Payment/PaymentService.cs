@@ -46,17 +46,17 @@ namespace TrickyBookStore.Services.Payment
             int numberOfBooksPaidLimit = 3;
             int numberOfBooksCatAccLimit = 3;
 
-            // Get customer by Id
-            Customer customer = CustomerService.GetCustomerById(customerId);
             // Get all transactions of the customers
             IList<PurchaseTransaction> purchaseTransactions = PurchaseTransactionService.GetPurchaseTransactions(customerId, month, year);
             
-
             // If there is no purchase transaction
             if (purchaseTransactions.Count == 0)
             {
                 return 0;
             }
+
+            // Get customer by Id
+            Customer customer = CustomerService.GetCustomerById(customerId);
             // Get all customer subscription based on list of Sub id in customer object
             IList<Subscription> customerSubscriptions = SubscriptionService.GetSubscriptions(customer.SubscriptionIds.ToArray());
             // Get all books based on transactions
