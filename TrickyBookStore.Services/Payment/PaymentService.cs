@@ -30,6 +30,7 @@ namespace TrickyBookStore.Services.Payment
             double totalAmount = 0.0;
             double oldBookAmount = 0.0;
             double newBookAmount = 0.0;
+            double subscriptionAmount = 0.0;
 
             double premAccNewBookDiscount = 0.15;
             double premAccOldBookCharge = 0;
@@ -175,8 +176,21 @@ namespace TrickyBookStore.Services.Payment
                 }
             }
 
-            totalAmount = oldBookAmount + newBookAmount;
+            // Get Subscription Amount
+            subscriptionAmount = GetSubscriptionPayment(customerSubscriptions);
 
+            totalAmount = oldBookAmount + newBookAmount + subscriptionAmount;
+
+            return totalAmount;
+        }
+
+        private double GetSubscriptionPayment(IList<Subscription> subscriptions)
+        {
+            double totalAmount = 0.0;
+            foreach (Subscription subscription in subscriptions)
+            {
+                totalAmount += subscription.PriceDetails["FixPrice"];
+            }
             return totalAmount;
         }
     }

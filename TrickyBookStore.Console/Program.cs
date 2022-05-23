@@ -19,7 +19,7 @@ namespace TrickyBookStore.ConsoleApp
             kernel.Load(Assembly.GetExecutingAssembly());
             IPaymentService paymentService = kernel.Get<IPaymentService>();
 
-            
+
             Console.WriteLine(paymentService.GetPaymentAmount(8, 5, 2022));
         }
 
